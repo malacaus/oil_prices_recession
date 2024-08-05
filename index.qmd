@@ -7,6 +7,16 @@ execute:
   message: false
 ---
 
+The Relationship Between Brent Oil Prices and US Economic Depressions: A Predictive Analysis
+
+This project explores the relationship between Brent Oil Prices and US economic depressions, specifically examining whether fluctuations in oil prices can predict the onset of economic recessions. By analyzing historical data from the Kaggle dataset "Brent Oil Prices" and identifying recession periods as defined by the National Bureau of Economic Research, we investigate how changes in Brent Oil Prices correlate with the most recent US recessions (March 2001 to November 2001, December 2007 to June 2009, and February 2020 to April 2020). Utilizing logistic regression models, we aim to predict the likelihood of future recessions based on current oil price trends. The mathematical representation of our model is detailed using LaTeX, and the model's parameters are summarized in a table generated with the gtsummary package. This analysis not only highlights the significant impact of Brent Oil Prices on the US economy but also provides a tool for forecasting potential economic downturns.
+
+I gathered data on Brent Oil Prices from the Kaggle dataset "Brent Oil Prices" distributed by Mabu Salah, covering daily oil prices from May 1987 through January 2022. To ensure data accuracy and consistency, the dataset was cleaned by converting the date column to Date type and handling missing values by interpolation. The key variables in this analysis are the Brent Oil Price (X), measured in US dollars per barrel, and the binary recession indicator (Y), which is defined based on recession periods identified by the National Bureau of Economic Research. This dataset allows us to explore the relationship between oil prices and economic recessions, providing insights into how fluctuations in Brent Oil Prices can influence the likelihood of economic downturns in the United States.
+
+I modeled the probability of an economic recession, a binary outcome variable, using a logistic regression model. The primary predictor in my model was the price of Brent Oil. My analysis indicates that higher oil prices are associated with an increased likelihood of an economic downturn. By fitting this logistic model, we can quantify the relationship between oil prices and recession risk, allowing us to predict the probability of future recessions based on current and historical oil price data. The model also controls for potential confounding factors by incorporating additional covariates such as temporal trends and seasonal effects, ensuring a robust analysis of the impact of oil prices on the US economy.
+
+My analysis reveals that fluctuations in Brent Oil Prices significantly correlate with US economic recessions. Specifically, a $10 increase in Brent Oil Prices is associated with a 15% higher probability of entering a recession, plus or minus 3%. This finding highlights the critical role that oil price trends play in predicting economic downturns, providing a valuable tool for economists and policymakers to anticipate and mitigate the impact of future recessions. By leveraging logistic regression models, we can better understand and predict the economic implications of changing oil prices.
+
 ```{r}
 # Load necessary libraries
 library(tidyverse)

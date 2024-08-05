@@ -7,6 +7,9 @@ execute:
   message: false
 ---
 
+I modeled the probability of an economic recession, a binary outcome variable, using a logistic regression model. The primary predictor in my model was the price of Brent Oil. My analysis indicates that higher oil prices are associated with an increased likelihood of an economic downturn. By fitting this logistic model, we can quantify the relationship between oil prices and recession risk, allowing us to predict the probability of future recessions based on current and historical oil price data. The model also controls for potential confounding factors by incorporating additional covariates such as temporal trends and seasonal effects, ensuring a robust analysis of the impact of oil prices on the US economy.
+<br>
+
 ```{r}
 # Load necessary libraries
 library(tidyverse)

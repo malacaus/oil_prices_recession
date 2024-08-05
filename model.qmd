@@ -1,0 +1,88 @@
+---
+title: "model"
+format: html
+execute: 
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+# Load necessary libraries
+library(tidyverse)
+library(lubridate)
+library(zoo)
+library(gtsummary)
+library(broom)
+
+# First, I downloaded the dataset from Kaggle and saved it as BrentOilPrices.csv, load it into R
+# Load the dataset
+oil_data <- read.csv("data/BrentOilPrices.csv")
+
+# Identify US Economic Recession Periods: I need a dataset that indicates periods of US economic depression. I obtained this data from the National Bureau of Economic Research (NBER).
+# For simplicity, I'll create a sample dataset representing economic depression periods.
+# Load US Economic Depression data
+recession_data <- data.frame(
+  #Start = as.Date(c("2007-12-01", "2020-02-01")),
+  #End = as.Date(c("2009-06-01", "2020-04-01"))
+  Start = as.Date(c("2001-03-01", "2007-12-01", "2020-02-01")),
+  End = as.Date(c("2001-11-01", "2009-06-01", "2020-04-01"))
+)
+
+# Convert date column to Date type
+# Make sure the date column in the oil data is of Date type.
+# oil_data$Date <- as.Date(oil_data$Date, format = "%d-%m-%Y")
+# the above line doesn't work, so I changed it to the following:
+oil_data <- oil_data %>% mutate(Date = ymd(Date))
+
+# Check and clean the data: Make sure the dates are correctly formatted and handle any missing values.
+# Remove rows with missing values
+oil_data <- oil_data %>% filter(!is.na(Date) & !is.na(Price))
+
+
+# Prepare data for modeling
+oil_data <- oil_data %>% 
+  mutate(recession = ifelse(Date >= as.Date("2001-03-01") & Date <= as.Date("2001-11-01") |
+                            Date >= as.Date("2007-12-01") & Date <= as.Date("2009-06-01") |
+                            Date >= as.Date("2020-02-01") & Date <= as.Date("2020-04-01"), 1, 0))
+
+# Model: Logistic Regression to predict recession periods
+model <- glm(recession ~ Price, data = oil_data, family = binomial)
+
+# Summary of the model
+summary(model)
+
+# Generate a table using gtsummary
+tbl_regression(model)
+
+
+
+
+
+
+
+```
+<br>
+<br>
+Here's the LaTeX representation of the logistic regression model formula:
+$$
+\text{Logit}(P(Y = 1)) = \beta_0 + \beta_1 \cdot X
+$$
+
+Where:
+
+- \\(P(Y = 1)\\) is the probability of being in a recession.
+
+- \\(\\beta_0\\) is the intercept.
+
+- \\(\\beta_1\\) is the coefficient for Brent Oil Prices (X).
+
+<br>
+<br>
+Predict the probability of a recession for a given Brent Oil Price (example shown with Price = 50): 
+
+```{r}
+# Predict the next recession (example)
+predict(model, newdata = data.frame(Price = 50), type = "response")
+```
+

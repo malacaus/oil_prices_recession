@@ -1,0 +1,16 @@
+---
+title: "Sources"
+format: html
+---
+
+**Brent Oil Prices**
+
+[https://www.kaggle.com/datasets/mabusalah/brent-oil-prices](https://www.kaggle.com/datasets/mabusalah/brent-oil-prices)
+
+I converted date column to Date type and made sure the date column in the oil data is of Date type.
+I checked and cleaned the data to make sure the dates are correctly formatted and handle any missing values, and removed rows with missing values.
+
+[https://en.wikipedia.org/wiki/List_of_recessions_in_the_United_States#Sources](https://en.wikipedia.org/wiki/List_of_recessions_in_the_United_States#Sources)
+
+Identify US Economic Recession Periods: 
+I need a dataset that indicates periods of US economic depression. I obtained this data from the National Bureau of Economic Research (NBER). For simplicity, I'll create a sample dataset representing economic depression periods. 

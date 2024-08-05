@@ -1,0 +1,67 @@
+---
+title: "Predicting the next recession by relationship between Brent Oil Prices and US recession."
+format: html
+execute: 
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+# Load necessary libraries
+library(tidyverse)
+library(lubridate)
+library(zoo)
+library(gtsummary)
+library(broom)
+
+# First, I downloaded the dataset from Kaggle and saved it as BrentOilPrices.csv, load it into R
+# Load the dataset
+oil_data <- read.csv("data/BrentOilPrices.csv")
+
+# Identify US Economic Recession Periods: I need a dataset that indicates periods of US economic depression. I obtained this data from the National Bureau of Economic Research (NBER).
+# For simplicity, I'll create a sample dataset representing economic depression periods.
+# Load US Economic Depression data
+recession_data <- data.frame(
+  #Start = as.Date(c("2007-12-01", "2020-02-01")),
+  #End = as.Date(c("2009-06-01", "2020-04-01"))
+  Start = as.Date(c("2001-03-01", "2007-12-01", "2020-02-01")),
+  End = as.Date(c("2001-11-01", "2009-06-01", "2020-04-01"))
+)
+
+# Convert date column to Date type
+# Make sure the date column in the oil data is of Date type.
+# oil_data$Date <- as.Date(oil_data$Date, format = "%d-%m-%Y")
+# the above line doesn't work, so I changed it to the following:
+oil_data <- oil_data %>% mutate(Date = ymd(Date))
+
+# Check and clean the data: Make sure the dates are correctly formatted and handle any missing values.
+# Remove rows with missing values
+oil_data <- oil_data %>% filter(!is.na(Date) & !is.na(Price))
+
+# Use ggplot2 to create a plot showing the relationship between Brent Oil Prices and US Economic Depression periods.
+# Plotting the data
+ggplot() +
+  geom_bar(data = oil_data, aes(x = Date, y = Price), stat = "identity", fill = "blue") +
+  geom_rect(data = recession_data, aes(xmin = Start, xmax = End, ymin = -Inf, ymax = Inf), 
+            fill = "red", alpha = 0.3) +
+  
+  
+  
+  
+  theme_minimal() +
+  labs(
+    title = "Relationship between Brent Oil Prices and US Economic Depression",
+    x = "Year",
+    y = "Brent Oil Price (USD)"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+```
+
+Economic recessions generally correlate with a decline in oil prices, likely due to decreased industrial activity and consumer demand.
+
+The following data was pulled from Kaggle. Then, the relevant data frames were joined to analyze the relationship between Brent Oil Prices and US economic depression.
+
+From the plot, you can observe the relationship between Brent Oil Prices and US economic depression periods (highlighted in red). During the 2007-2009 recession, Brent oil prices initially peaked but then sharply declined, reflecting reduced demand due to economic downturn. In the 2020 recession, prices also dropped significantly, indicating a similar pattern where economic stress leads to lower oil prices. This relationship suggests that economic recessions generally correlate with a decline in oil prices, likely due to decreased industrial activity and consumer demand.
